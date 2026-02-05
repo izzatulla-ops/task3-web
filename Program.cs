@@ -4,38 +4,38 @@ using Microsoft.AspNetCore.Http;
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-// Ссылка должна повторять e-mail: izzatulla.unusov@gmail.com
-// Все символы кроме букв и цифр заменены на "_"
+// URL повторяет e-mail: izzatulla.unusov@gmail.com
 app.MapGet("/izzatulla_unusov_gmail_com", (HttpContext ctx) =>
 {
-    // Берем параметры x и y из URL
     string x = ctx.Request.Query["x"];
     string y = ctx.Request.Query["y"];
 
-    // Проверяем, что это натуральные числа (>0)
-    if (!int.TryParse(x, out int a) || !int.TryParse(y, out int b) || a <= 0 || b <= 0)
+    // Проверка: натуральные числа
+    if (!long.TryParse(x, out long a) ||
+        !long.TryParse(y, out long b) ||
+        a <= 0 || b <= 0)
     {
         return Results.Text("NaN");
     }
 
-    // Функция для НОД
-    int Gcd(int m, int n)
+    // НОД (алгоритм Евклида)
+    static long Gcd(long m, long n)
     {
         while (n != 0)
         {
-            int temp = n;
+            long temp = n;
             n = m % n;
             m = temp;
         }
         return m;
     }
 
-    // Вычисляем НОК
-    int lcm = a / Gcd(a, b) * b;
+    long gcd = Gcd(a, b);
 
-    // Возвращаем только строку с цифрами
+    // Защита от переполнения
+    long lcm = (a / gcd) * b;
+
     return Results.Text(lcm.ToString());
 });
 
-// Запуск сервера
 app.Run();

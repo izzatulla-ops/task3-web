@@ -26,3 +26,4 @@
 /home/izzatulla/Task3/obj/Debug/net10.0/Task3.pdb
 /home/izzatulla/Task3/obj/Debug/net10.0/Task3.genruntimeconfig.cache
 /home/izzatulla/Task3/obj/Debug/net10.0/ref/Task3.dll
+/home/izzatulla/Task3/obj/Debug/net10.0/Task3.sourcelink.json
